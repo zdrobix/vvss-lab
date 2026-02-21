@@ -9,11 +9,8 @@ public enum CategorieBautura {
     TEA,
     BUBBLE_TEA,
 
-    WATER_BASED,
     JUICE,
     SMOOTHIE,
-
-    NON_COFFEE,
 
     ALL
 }
