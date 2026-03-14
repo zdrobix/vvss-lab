@@ -28,13 +28,6 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-//        Iterable<Product> it=productRepo.findAll();
-//        ArrayList<Product> products=new ArrayList<>();
-//        it.forEach(products::add);
-//        return products;
-
-//        return StreamSupport.stream(productRepo.findAll().spliterator(), false)
-//                    .collect(Collectors.toList());
         return productRepo.findAll();
     }
 

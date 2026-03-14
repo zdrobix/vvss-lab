@@ -17,9 +17,7 @@ public abstract class AbstractRepository<ID, E>
 
     @Override
     public List<E> findAll() {
-        return (List<E>)StreamSupport.stream(entities.values().spliterator(), false).toList();
-//                    .collect(Collectors.toList());
-        // return (List<E>) entities.values();
+        return StreamSupport.stream(entities.values().spliterator(), false).toList();
     }
 
     @Override
@@ -35,8 +33,12 @@ public abstract class AbstractRepository<ID, E>
 
     @Override
     public E update(E entity) {
-        entities.put(getId(entity), entity);
-        return entity;
+        E old = entities.get(getId(entity));
+        if (old != null) {
+            entities.put(getId(entity), entity);
+            return old;
+        }
+        throw new IllegalArgumentException("Trying to update an unknown entity");
     }
 
     protected abstract ID getId(E entity);
