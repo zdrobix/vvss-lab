@@ -40,9 +40,17 @@ public class OrderService {
         return orderRepo.findOne(id);
     }
 
-    public double computeTotal(Order o) {
+   public double computeTotal(Order o) {
         return o.getItems().stream()
-                .mapToDouble(i -> productRepo.findOne(i.getProduct().getId()).getPret() * i.getQuantity())
+                .mapToDouble(i -> {
+                    Product itemProduct = i.getProduct();
+                    if (itemProduct == null) return 0.0;
+
+                    Product repoProduct = productRepo.findOne(itemProduct.getId());
+                    double price = (repoProduct != null) ? repoProduct.getPret() : itemProduct.getPret();
+
+                    return price * i.getQuantity();
+                })
                 .sum();
     }
 
