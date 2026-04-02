@@ -32,49 +32,73 @@ public class StocService {
         stocRepo.delete(id);
     }
 
-    public boolean areSuficient(Reteta reteta) {
-        List<IngredientReteta> ingredienteNecesare = reteta.getIngrediente();
-
-        for (IngredientReteta e : ingredienteNecesare) {
-            String ingredient = e.getDenumire();
-            double necesar = e.getCantitate();
+    // verifică stoc pentru un "coș" agregat: ingredient -> cantitate necesară
+    public boolean areSuficiente(Map<String, Double> necesarPerIngredient) {
+        for (Map.Entry<String, Double> entry : necesarPerIngredient.entrySet()) {
+            String ingredient = entry.getKey();
+            double necesar = entry.getValue();
 
             double disponibil = stocRepo.findAll().stream()
                     .filter(s -> s.getIngredient().equalsIgnoreCase(ingredient))
                     .mapToDouble(Stoc::getCantitate)
                     .sum();
 
-            if (disponibil < necesar) {
-                return false;
-            }
+            if (disponibil < necesar) return false;
         }
         return true;
     }
 
-    public void consuma(Reteta reteta) {
-        if (!areSuficient(reteta)) {
-            throw new IllegalStateException("Stoc insuficient pentru rețeta.");
+    public void consuma(Map<String, Double> necesarPerIngredient) {
+        if (!areSuficiente(necesarPerIngredient)) {
+            throw new IllegalStateException("Stoc insuficient pentru comanda.");
         }
 
-        for (IngredientReteta e : reteta.getIngrediente()) {
-            String ingredient = e.getDenumire();
-            double necesar = e.getCantitate();
+        for (Map.Entry<String, Double> entry : necesarPerIngredient.entrySet()) {
+            String ingredient = entry.getKey();
+            double ramas = entry.getValue();
 
             List<Stoc> ingredienteStoc = stocRepo.findAll().stream()
                     .filter(s -> s.getIngredient().equalsIgnoreCase(ingredient))
                     .toList();
 
-            double ramas = necesar;
-
             for (Stoc s : ingredienteStoc) {
                 if (ramas <= 0) break;
 
                 double deScazut = Math.min(s.getCantitate(), ramas);
-                s.setCantitate((int)(s.getCantitate() - deScazut));
-                ramas -= deScazut;
 
+                // IMPORTANT: fără (int) => nu mai pierzi cantitate prin trunchiere
+                s.setCantitate(s.getCantitate() - deScazut);
+
+                ramas -= deScazut;
                 stocRepo.update(s);
             }
         }
+    }
+
+    // păstrăm API-ul vechi (pentru compatibilitate)
+    public boolean areSuficient(Reteta reteta) {
+        if (reteta == null) return false;
+
+        Map<String, Double> necesar = reteta.getIngrediente().stream()
+                .collect(java.util.stream.Collectors.toMap(
+                        IngredientReteta::getDenumire,
+                        IngredientReteta::getCantitate,
+                        Double::sum
+                ));
+
+        return areSuficiente(necesar);
+    }
+
+    public void consuma(Reteta reteta) {
+        if (reteta == null) throw new IllegalStateException("Reteta lipsa.");
+
+        Map<String, Double> necesar = reteta.getIngrediente().stream()
+                .collect(java.util.stream.Collectors.toMap(
+                        IngredientReteta::getDenumire,
+                        IngredientReteta::getCantitate,
+                        Double::sum
+                ));
+
+        consuma(necesar);
     }
 }

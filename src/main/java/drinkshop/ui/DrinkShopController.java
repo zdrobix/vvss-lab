@@ -226,7 +226,13 @@ public class DrinkShopController {
         currentOrder.getItems().addAll(currentOrderItems);
         currentOrder.computeTotalPrice();
 
-        service.addOrder(currentOrder);
+        try {
+            service.finalizeazaComanda(currentOrder);
+        } catch (RuntimeException e) {
+            showError(e.getMessage());
+            return;
+        }
+
         txtReceipt.setText(service.generateReceipt(currentOrder));
 
         currentOrderItems.clear();

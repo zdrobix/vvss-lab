@@ -5,7 +5,8 @@ import drinkshop.export.CsvExporter;
 import drinkshop.receipt.ReceiptGenerator;
 import drinkshop.reports.DailyReportService;
 import drinkshop.repository.Repository;
-
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 public class DrinkShopService {
@@ -81,11 +82,15 @@ public class DrinkShopService {
 
     // ---------- STOCK + RECIPE ----------
     public void comandaProdus(Product produs) {
-        Reteta reteta = retetaService.findById(produs.getId());
-
-        if (!stocService.areSuficient(reteta)) {
-            throw new IllegalStateException("Stoc insuficient pentru produsul: " + produs.getNume());
+        if (produs == null) {
+            throw new IllegalArgumentException("Produs null.");
         }
+
+        Reteta reteta = retetaService.findById(produs.getId());
+        if (reteta == null) {
+            throw new IllegalStateException("Nu exista reteta pentru produsul: " + produs.getNume());
+        }
+
         stocService.consuma(reteta);
     }
 
@@ -104,4 +109,35 @@ public class DrinkShopService {
     public void deleteReteta(int id) {
         retetaService.deleteReteta(id);
     }
+
+    public void finalizeazaComanda(Order o) {
+    if (o == null) throw new IllegalArgumentException("Comanda null.");
+    if (o.getItems() == null || o.getItems().isEmpty()) {
+        throw new IllegalStateException("Comanda fara produse!");
+    }
+
+    Map<String, Double> necesar = new HashMap<>();
+
+    for (OrderItem item : o.getItems()) {
+        if (item == null || item.getProduct() == null) {
+            throw new IllegalStateException("Comanda contine produs inexistent.");
+        }
+
+        int productId = item.getProduct().getId();
+        int qty = item.getQuantity();
+
+        Reteta reteta = retetaService.findById(productId);
+        if (reteta == null) {
+            throw new IllegalStateException("Nu exista reteta pentru produsul: " + item.getProduct().getNume());
+        }
+
+        for (IngredientReteta ing : reteta.getIngrediente()) {
+            necesar.merge(ing.getDenumire(), ing.getCantitate() * qty, Double::sum);
+        }
+    }
+
+    stocService.consuma(necesar);     // 1) verifică + consumă stoc
+    o.computeTotalPrice();            // 2) calculează total
+    orderService.addOrder(o);         // 3) salvează comanda
+}
 }
