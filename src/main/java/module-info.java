@@ -5,9 +5,14 @@ module drinkshop {
 
     requires org.controlsfx.controls;
 
-    opens drinkshop.ui to javafx.fxml;
+    opens drinkshop.ui;
+
     exports drinkshop.ui;
 
-    opens drinkshop.domain to  javafx.base;
+    opens drinkshop.domain to javafx.base;
+
     exports drinkshop.domain;
+
+    opens drinkshop.service;
+    opens drinkshop.repository;
 }
