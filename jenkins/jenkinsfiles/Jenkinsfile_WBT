@@ -1,0 +1,28 @@
+pipeline {
+  agent any
+  parameters {
+    string(name: 'TEST_CLASS', defaultValue: 'ProductServiceAddProductWBTTest', description: 'JUnit test class or pattern to run')
+    string(name: 'TESTLINK_PROJECT', defaultValue: 'ProiectAAA', description: 'TestLink project name')
+    string(name: 'TESTLINK_PLAN', defaultValue: 'xyir1234_WBT_TP', description: 'TestLink plan name')
+  }
+  stages {
+    stage('Checkout') {
+      steps { checkout scm }
+    }
+    stage('Build & Test') {
+      steps {
+        script {
+          if (isUnix()) {
+            sh "mvn -Dtest=${TEST_CLASS} verify"
+          } else {
+            bat "mvn -Dtest=%TEST_CLASS% verify"
+          }
+        }
+      }
+    }
+    stage('Publish JUnit') {
+      steps { junit 'target/surefire-reports/TEST-*.xml' }
+    }
+  }
+  post { always { archiveArtifacts artifacts: 'target/surefire-reports/*.xml', onlyIfSuccessful: false } }
+}
