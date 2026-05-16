@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>testspec Proiect237 - vtir3660_WBT</title>
+<link type="text/css" rel="stylesheet" href="https://www.scs.ubbcluj.ro/testlink/gui/themes/default/css/tl_documents.css" />
+<style type="text/css" media="print">.notprintable { display:none;}</style>
+</head>
+<body>
+<div>
+<div style="float:right;">TestLink Community [configure $tlCfg-&gt;document_generator-&gt;company_name]</div>
+<div>&nbsp;</div><hr />
+<p style="text-align: center;"><img alt="TestLink logo" title="configure using $tlCfg->document_generator->company_logo"  width= height= src="https://www.scs.ubbcluj.ro/testlink/gui/themes/default/images/tl-logo-transparent-25.png" /></p></div>
+<div class="doc_title"><p>Test Specification</p></div>
+<div class="doc_title" style="text-align:left;margin: auto;"><p>Test Project: Proiect237<br/>Test Suite: Proiect237 - vtir3660_WBT</p></div>
+<div class="summary"><p id="printedby">Printed by TestLink on 23/04/2026</p></div>
+<div class="pagefooter" id="copyright">2012 &copy; TestLink Community</div>
+<h1 class="general" style="page-break-before: always">Table Of Contents</h1><div class="toc"><p style="padding-left: 20px;"><b><a href="#toc_1">1.vtir3660_WBT</a></b></p>
+<p style="padding-left: 30px;"><b><a href="#toc_1_1">1.1.F02_TC01_WBT_Valid_Product_Add</a></b></p>
+<p style="padding-left: 45px;"><a href="#toc_tc30230">P237-77: TC_VALID_SC_001</a></p><p style="padding-left: 45px;"><a href="#toc_tc30236">P237-78: TC_NONVALID_BC_001</a></p></div><h1 class="doclevel" >Scope</h1>
+<div class="txtlevel"><p>Proiect de testare pentru studentii din grupa 237.</p></div>
+ <br/><a name='toc_1'></a>
+<h1 class='doclevel'>1.Test Suite : vtir3660_WBT</h1>
+<a name='toc_1_1'></a>
+<h2 class='doclevel'>1.1.Test Suite : F02_TC01_WBT_Valid_Product_Add</h2>
+<a name="toc_tc30230"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case P237-77: TC_VALID_SC_001&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">vtir3660</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>1. Selecteaza reteta cu ID =1 (&quot;Reteta Cola&quot;)</p>
+
+<p>2. Introdu in campul txtProdName valoarea &quot;Cola Premium&quot;</p>
+
+<p>3. Introdu in campul txtProdPrice valoarea &quot;15.99&quot;</p>
+
+<p>4. Verifica lista de produse existenta (trebuie sa fie fara coliziuni)</p>
+
+<p>5. Apasa butonul&nbsp; de adaugare</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>Aplicația este pornită, baza de date e accesibilă.</p>
+</td></tr><tr><td><span class="label">#:</span></td><td><span class="label">Step actions:</span></td><td><span class="label">Expected Results:</span></td></tr><tr><td width="5">1</td><td><p>1. Selecteaza reteta cu ID =1 (&quot;Reteta Cola&quot;)</p>
+
+<p>2. Introdu in campul txtProdName valoarea &quot;Cola Premium&quot;</p>
+
+<p>3. Introdu in campul txtProdPrice valoarea &quot;15.99&quot;</p>
+
+<p>4. Verifica lista de produse existenta (trebuie sa fie fara coliziuni)</p>
+
+<p>5. Apasa butonul&nbsp; de adaugare</p>
+</td><td><p>Produsul este creat cu succes; metoda service.addProduct() este apelată o dată; nodurile 1-6 sunt acoperite.</p>
+</td></tr><tr><td width="5">2</td><td></td><td></td></tr><tr><td width="5">3</td><td></td><td></td></tr><tr><td width="5">4</td><td></td><td></td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Manual</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >ProductServiceAddProductWBTTest.StatementCoverage </td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >tcSc001_validProduct_successPath</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">vtir3660_F01:  Lab02 [Version : 1]<br />vtir3660_F02:  Lab03 [Version : 1]<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+<a name="toc_tc30236"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case P237-78: TC_NONVALID_BC_001&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">vtir3660</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Testarea &icirc;ncercării de adăugare a unui produs fără a selecta o rețetă (rețetă NULL).</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>Nicio reteta nu e selectata in tabel</p>
+</td></tr><tr><td><span class="label">#:</span></td><td><span class="label">Step actions:</span></td><td><span class="label">Expected Results:</span></td></tr><tr><td width="5">1</td><td><p>1. Lasa selectia tabelului de retete goala</p>
+
+<p>2. Introdu date in campurile de nume si pret</p>
+
+<p>3. Apasa butonul de adaugare</p>
+</td><td><p>Apare o alertă de tip INFORMATION; metoda service.addProduct() NU este apelată.</p>
+</td></tr><tr><td width="5">2</td><td></td><td></td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Manual</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >ProductServiceAddProductWBTTest.BranchCoverage </td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >tcBc001_nullProduct</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">&nbsp;None<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+
+</body>
+</html>
