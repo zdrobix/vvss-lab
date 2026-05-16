@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>testspec Demo - vtir3660_IntT</title>
+<link type="text/css" rel="stylesheet" href="https://www.scs.ubbcluj.ro/testlink/gui/themes/default/css/tl_documents.css" />
+<style type="text/css" media="print">.notprintable { display:none;}</style>
+</head>
+<body>
+<div>
+<div style="float:right;">TestLink Community [configure $tlCfg-&gt;document_generator-&gt;company_name]</div>
+<div>&nbsp;</div><hr />
+<p style="text-align: center;"><img alt="TestLink logo" title="configure using $tlCfg->document_generator->company_logo"  width= height= src="https://www.scs.ubbcluj.ro/testlink/gui/themes/default/images/tl-logo-transparent-25.png" /></p></div>
+<div class="doc_title"><p>Test Specification</p></div>
+<div class="doc_title" style="text-align:left;margin: auto;"><p>Test Project: Demo<br/>Test Suite: Demo - vtir3660_IntT</p></div>
+<div class="summary"><p id="printedby">Printed by TestLink on 16/05/2026</p></div>
+<div class="pagefooter" id="copyright">2012 &copy; TestLink Community</div>
+<h1 class="general" style="page-break-before: always">Table Of Contents</h1><div class="toc"><p style="padding-left: 20px;"><b><a href="#toc_1">1.vtir3660_IntT</a></b></p>
+<p style="padding-left: 45px;"><a href="#toc_tc31018">D-32: TC_Unit_Success_001</a></p><p style="padding-left: 45px;"><a href="#toc_tc31024">D-33: TC_Int2_Failure_001</a></p><p style="padding-left: 45px;"><a href="#toc_tc31030">D-34: TC_Int3_Success_001</a></p></div><h1 class="doclevel" >Scope</h1>
+<div class="txtlevel"><p>Demo project for VVSS and VVTA students.</p></div>
+ <br/><a name='toc_1'></a>
+<h1 class='doclevel'>1.Test Suite : vtir3660_IntT</h1>
+<a name="toc_tc31018"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case D-32: TC_Unit_Success_001&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">vtir3660</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><pre>
+Testează Unit Testing pentru ProductService &icirc;n izolare absolută.
+Validează că un produs valid este acceptat și că Repository.save()
+este apelat corect o singură dată (cu Mockito verify)</pre>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><pre>
+PRECONDITIONS:
+&bull; Mockito initialized with MockitoAnnotations.openMocks(this)
+&bull; @Mock Repository&lt;Integer, Product&gt; mockProductRepository created
+&bull; ProductService instance created: new ProductService(mockProductRepository)
+&bull; No side effects from previous tests</pre>
+</td></tr><tr><td><span class="label">#:</span></td><td><span class="label">Step actions:</span></td><td><span class="label">Expected Results:</span></td></tr><tr><td width="5">1</td><td><p>Create Product(1, &quot;Espresso&quot;, 9.99, CLASSIC_COFFEE, POWDER)</p>
+</td><td></td></tr><tr><td width="5">2</td><td><p>Call productService.addProduct(product)</p>
+</td><td></td></tr><tr><td width="5">3</td><td><p>Assert: verify(mockRepository, times(1)).save(product)</p>
+</td><td></td></tr><tr><td width="5">4</td><td></td><td><p>Repository.save() called exactly once with the valid product</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Manual</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >drinkshop.service.ProductServiceUnitTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >testAddProductValid_SaveCalled</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">&nbsp;None<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+<a name="toc_tc31024"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case D-33: TC_Int2_Failure_001&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">vtir3660</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Testează Integrarea Top-Down Pasul 2 pe un flux negativ. Verifică dacă Validatorul real prinde o entitate invalidă (NULL) și aruncă excepția aferentă, prevenind apelarea Repository-ului (Mock).</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>&bull; Real ProductValidator initialized</p>
+
+<p>&bull; Mockito @Mock Repository created</p>
+
+<p>&bull; ProductService initialized with real validator and mock repo</p>
+</td></tr><tr><td><span class="label">#:</span></td><td><span class="label">Step actions:</span></td><td><span class="label">Expected Results:</span></td></tr><tr><td width="5">1</td><td><p>Set product to null: Product product = null;</p>
+</td><td></td></tr><tr><td width="5">2</td><td><p>Expect ValidationException when calling: ProductService.addProduct(product)</p>
+</td><td></td></tr><tr><td width="5">3</td><td><p>Use Mockito verify to confirm Repository was NOT accessed: verify(mockProductRepository, never()).save(any())</p>
+</td><td></td></tr><tr><td width="5">4</td><td></td><td><p>ValidationException is thrown by the real Validator</p>
+
+<p>Repository.save() is called 0 times (never called)</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Manual</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >drinkshop.service.IntegrationStep2_ServiceValidatorTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >testAddNullProduct_ValidatorRejects_SaveNotCalled</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">&nbsp;None<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+<a name="toc_tc31030"></a><p>&nbsp;</p><div> <table class="tc" width="90%" ><tr><th colspan="4">Test Case D-34: TC_Int3_Success_001&nbsp;<span style="font-size: 80%;">[Version  : 1]</span></th></tr>
+<tr><td width="20%" valign="top"><span class="label">Author:</span></td><td colspan="3">vtir3660</td></tr>
+<tr><td colspan="4"><span class="label">Summary:</span><br /><p>Testează Integrarea Top-Down Pasul 3 (Integrare Completă). ProductService funcționează cu ProductValidator real și Repository real (&icirc;n memorie sau bază de date). Testează adăugarea și extragerea produsului pentru a asigura coerența datelor.</p>
+</td></tr><tr><td colspan="4"><span class="label">Preconditions:</span><br /><p>Real ProductValidator initialized</p>
+
+<p>Real Repository initialized (FileRepository / InMemoryRepository)</p>
+
+<p>ProductService initialized with all real components&nbsp;</p>
+
+<p>Ensure Repository is completely empty before test</p>
+</td></tr><tr><td><span class="label">#:</span></td><td><span class="label">Step actions:</span></td><td><span class="label">Expected Results:</span></td></tr><tr><td width="5">1</td><td><p>Create Product object: Product product = new Product(1, &quot;Latte&quot;, 12.00, CategorieBautura.MILK_COFFEE, TipBautura.LIQUID)</p>
+</td><td></td></tr><tr><td width="5">2</td><td><p>Call ProductService.addProduct(product)</p>
+</td><td></td></tr><tr><td width="5">3</td><td><p>Retrieve products via ProductService.findAll() or getProductById(1)</p>
+</td><td></td></tr><tr><td width="5">4</td><td></td><td><p>&nbsp;Product is successfully validated and saved in the real Repository</p>
+
+<p>&nbsp;Retrieval returns exactly the inserted product</p>
+
+<p>Expected product data perfectly matches actual retrieved data</p>
+</td></tr><tr><td width="20%" valign="top"><span class="label">Execution type:</span></td><td colspan="3">Manual</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Estimated exec. duration (min):</span></td><td colspan="3"></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Importance:</span></td><td colspan="3">Medium</td></tr>
+<tr><td colspan="4"></td></tr><tr><td > name of the autotest class:</td><td  colspan = "3" >drinkshop.service.IntegrationStep3_ServiceValidatorRepositoryTest</td></tr>
+<tr><td > name of the test method:</td><td  colspan = "3" >testAddProductFullFlow_SaveAndRetrieve</td></tr>
+<tr><td width="20%" valign="top"><span class="label">Requirements</span><td colspan="3">&nbsp;None<br /></td></tr>
+<tr><td width="20%" valign="top"><span class="label">Keywords:</span></td><td colspan="3">&nbsp;None<br/></td></tr>
+</table>
+</div>
+
+</body>
+</html>
