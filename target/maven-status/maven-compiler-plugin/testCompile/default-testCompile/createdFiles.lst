@@ -1,8 +1,0 @@
-drinkshop\service\ProductServiceTest$AdvancedTests.class
-drinkshop\service\ProductServiceAddProductWBTTest$StatementCoverage.class
-drinkshop\service\ProductServiceAddProductWBTTest$BranchCoverage.class
-drinkshop\service\ProductServiceTest.class
-drinkshop\service\ProductServiceAddProductWBTTest.class
-drinkshop\service\ProductServiceTest$BVATests.class
-drinkshop\service\ProductServiceTest$ECPTests.class
-drinkshop\domain\ProductTest.class

@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: drinkshop.service.IntegrationStep2_ServiceValidatorTest$InteractionTests
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.284 s -- in drinkshop.service.IntegrationStep2_ServiceValidatorTest$InteractionTests
