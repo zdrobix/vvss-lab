@@ -8,6 +8,7 @@ import drinkshop.service.validator.ValidationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -188,6 +189,7 @@ class ProductServiceTest {
 
         @Nested
         @DisplayName("Teste Suplimentare - Provider de Date")
+        @TestInstance(TestInstance.Lifecycle.PER_CLASS)
         class AdvancedTests {
 
                 /**
@@ -222,7 +224,7 @@ class ProductServiceTest {
                 /**
                  * MethodSource: furnizează Stream de cazuri de testare complexe
                  */
-                static Stream<org.junit.jupiter.params.provider.Arguments> provideProductTestCases() {
+                Stream<org.junit.jupiter.params.provider.Arguments> provideProductTestCases() {
                         return Stream.of(
                                         // Caz 1: Preț maxim valid, nume maxim valid
                                         org.junit.jupiter.params.provider.Arguments.of(
