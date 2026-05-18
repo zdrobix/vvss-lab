@@ -87,6 +87,8 @@
         <version>3.2.5</version>
         <configuration>
           <useModulePath>false</useModulePath>
+          <includePlatformProviders>true</includePlatformProviders>
+
         </configuration>
       </plugin>
         <plugin>
