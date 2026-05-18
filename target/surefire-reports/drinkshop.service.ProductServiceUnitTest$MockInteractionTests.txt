@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: drinkshop.service.ProductServiceUnitTest$MockInteractionTests
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.629 s -- in drinkshop.service.ProductServiceUnitTest$MockInteractionTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in drinkshop.service.ProductServiceUnitTest$MockInteractionTests

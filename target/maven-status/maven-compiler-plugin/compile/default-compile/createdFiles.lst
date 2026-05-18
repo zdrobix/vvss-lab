@@ -8,7 +8,6 @@ drinkshop\repository\file\FileProductRepository.class
 drinkshop\repository\Repository.class
 drinkshop\ui\DrinkShopApp.class
 drinkshop\domain\IngredientReteta.class
-module-info.class
 drinkshop\domain\Product.class
 drinkshop\service\RetetaService.class
 drinkshop\domain\OrderItem.class
