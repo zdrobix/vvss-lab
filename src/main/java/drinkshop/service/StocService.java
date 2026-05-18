@@ -57,9 +57,9 @@ public class StocService {
             String ingredient = entry.getKey();
             double ramas = entry.getValue();
 
-            List<Stoc> ingredienteStoc = stocRepo.findAll().stream()
+                List<Stoc> ingredienteStoc = stocRepo.findAll().stream()
                     .filter(s -> s.getIngredient().equalsIgnoreCase(ingredient))
-                    .toList();
+                    .collect(java.util.stream.Collectors.toList());
 
             for (Stoc s : ingredienteStoc) {
                 if (ramas <= 0) break;
